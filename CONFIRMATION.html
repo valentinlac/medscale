@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Félicitations pour votre réservation | BeautyFrame</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #faf7f2;
+            color: #b8838a;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           GRADIENT BACKGROUND - Scrolle avec la page
+           ======================================== */
+        .gradient-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 700px;
+            background: linear-gradient(
+                180deg,
+                #b8838ac6 0%,
+                #b8838a8c 20%,
+                #b8838a52 45%,
+                #b8838a1d 70%,
+                #b8838a00 100%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ========================================
+           MAIN CONTENT
+           ======================================== */
+        .main-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            padding: 100px 24px 80px;
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .hero-image {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            color: #1a3a52;
+        }
+
+        .hero .subtitle {
+            font-size: 19px;
+            color: #295c84;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.65;
+            font-weight: 400;
+            letter-spacing: -0.30px;
+        }
+
+        /* ========================================
+           DISCOVER SECTION
+           ======================================== */
+        .discover-section {
+            padding: 60px 24px 32px;
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .discover-section h2 {
+            font-size: clamp(26px, 4vw, 38px);
+            font-weight: 700;
+            margin-bottom: 14px;
+            letter-spacing: -1.25px;
+            color: #1a3a52;
+        }
+
+        .discover-section p {
+            font-size: 19px;
+            color: #295c84;
+            max-width: 550px;
+            margin: 0 auto;
+            line-height: 1.65;
+            font-weight: 400;
+            letter-spacing: -0.30px;
+        }
+
+        /* ========================================
+           VIDEO CONTAINER
+           ======================================== */
+        .video-section {
+            padding: 32px 24px 60px;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .video-wrapper {
+            position: relative;
+            background: #18181b;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 2px 4px -2px rgba(0, 0, 0, 0.1),
+                0 20px 40px -8px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-embed {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-embed iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ========================================
+           WHATSAPP NOTICE
+           ======================================== */
+        .whatsapp-section {
+            padding: 0 24px 80px;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .whatsapp-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 22px 28px;
+            background: #e1c9cd99;
+            border: 1px solid #b8838a;
+            border-radius: 12px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .whatsapp-icon {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+        }
+
+        .whatsapp-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .whatsapp-text {
+            font-size: 16px;
+            color: #1a3a52;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        /* ========================================
+           TESTIMONIALS SECTION - Floating Card Effect
+           ======================================== */
+        .testimonials-section {
+            padding: 50px 24px 120px;
+            position: relative;
+        }
+
+        .testimonials-container {
+            max-width: 1040px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 60px 48px 64px;
+            position: relative;
+            
+            /* Ombre portée colorée */
+            box-shadow: 
+                0 4px 6px -1px #b8838a,
+                0 10px 20px -5px #b8838ac2,
+                0 25px 50px -12px #b8838a9a,
+                0 40px 80px -20px #b8838a7c;
+        }
+
+        .testimonials-container::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 10%;
+            right: 10%;
+            height: 60px;
+            background: linear-gradient(
+                180deg,
+                rgba(184, 131, 138, 0.15) 0%,
+                rgba(184, 131, 138, 0) 100%
+            );
+            filter: blur(30px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .testimonials-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        .testimonials-header h2 {
+            font-size: clamp(26px, 4vw, 38px);
+            font-weight: 700;
+            margin-bottom: 14px;
+            letter-spacing: -1.25px;
+            color: #1a3a52;
+        }
+
+        .testimonials-header p {
+            font-size: 17px;
+            color: #295c84;
+            line-height: 1.65;
+            font-weight: 400;
+            letter-spacing: -0.25px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        /* ========================================
+           TESTIMONIAL CARD - Format 16:9 (miniature YouTube)
+           ======================================== */
+        .testimonial-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9; /* Format miniature YouTube 1920x1080 */
+            display: block;
+            background: #1e293b;
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 
+                0 20px 25px -5px #b8838acc,
+                0 8px 10px -6px #b8838a7e;
+        }
+
+        /* Image du témoignage - prend toute la card */
+        .testimonial-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ========================================
+           FOOTER SPACER
+           ======================================== */
+        .footer-spacer {
+            height: 60px;
+            background: #faf7f2;
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 80px 20px 60px;
+            }
+
+            .hero-image {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .testimonials-section {
+                padding: 60px 16px 80px;
+            }
+
+            .testimonials-container {
+                padding: 40px 24px 48px;
+                border-radius: 20px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .whatsapp-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 14px;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .testimonials-container {
+                padding: 32px 20px 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Gradient Background - scrolle avec la page -->
+    <div class="gradient-bg"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- ============================================================
+             HERO SECTION
+             ============================================================ -->
+        <section class="hero">
+
+            <!-- ╔════════════════════════════════════════════════════════════════╗
+                 ║  🖼️ IMAGE COCHE/LOGO                                           ║
+                 ║  Remplace "check.png" par ton URL d'image                      ║
+                 ╚════════════════════════════════════════════════════════════════╝ -->
+            <div class="hero-image">
+                <img src="check.png" alt="Confirmation">
+            </div>
+
+            <h1>Félicitations pour votre réservation</h1>
+            <p class="subtitle">Votre inscription a été confirmée avec succès. Découvrez comment nous aidons nos clientes à transformer leur centre/institut.</p>
+        </section>
+
+        <!-- ============================================================
+             DISCOVER SECTION
+             ============================================================ -->
+        <section class="discover-section">
+            <h2>Découvrez BeautyFrame</h2>
+            <p>Regardez cette présentation pour comprendre comment nous pouvons vous accompagner dans votre croissance.</p>
+        </section>
+
+        <!-- ============================================================
+             VIDEO SECTION
+             ============================================================ -->
+        <section class="video-section">
+            <div class="video-wrapper">
+
+                <!-- ╔════════════════════════════════════════════════════════════════╗
+                     ║  🎬 VIDÉO PRINCIPALE                                            ║
+                     ║  Remplace "TON-VIDEO-ID" par ton ID YouTube/Vimeo/Loom         ║
+                     ║                                                                ║
+                     ║  Exemples:                                                     ║
+                     ║  YouTube → https://www.youtube.com/embed/dQw4w9WgXcQ           ║
+                     ║  Vimeo   → https://player.vimeo.com/video/123456789            ║
+                     ║  Loom    → https://www.loom.com/embed/abc123def456             ║
+                     ╚════════════════════════════════════════════════════════════════╝ -->
+                <div class="video-embed">
+                    <iframe src="https://www.loom.com/embed/d392a790f9bb41be9e7d17458e9624dc" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                        title="Présentation BeautyFrame"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============================================================
+             WHATSAPP NOTICE
+             ============================================================ -->
+        <section class="whatsapp-section">
+            <div class="whatsapp-card">
+                <div class="whatsapp-icon">
+                    <svg viewBox="0 0 24 24" fill="#25D366">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                </div>
+                <span class="whatsapp-text">Vous allez être ajoutée sous peu à un groupe WhatsApp pour les prochaines étapes</span>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             TESTIMONIALS SECTION
+             ============================================================ -->
+        <section class="testimonials-section">
+            <div class="testimonials-container">
+                <div class="testimonials-header">
+                    <h2>Ce que disent nos clientes</h2>
+                    <p>Découvrez les témoignages de celles qui ont transformé leur activité avec BeautyFrame.</p>
+                </div>
+
+                <div class="testimonials-grid">
+
+                    <!-- ╔════════════════════════════════════════════════════════════════╗
+                         ║  🖼️ RÉSULTAT CLIENTE 1                                         ║
+                         ║                                                                ║
+                         ║  Remplace "tc1.png" par ton image (format 1920x1080 idéal)    ║
+                         ╚════════════════════════════════════════════════════════════════╝ -->
+                    <div class="testimonial-card">
+                        <img src="tc1.png" alt="Résultat cliente 1">
+                    </div>
+
+                    <!-- ╔════════════════════════════════════════════════════════════════╗
+                         ║  🖼️ RÉSULTAT CLIENTE 2                                         ║
+                         ║                                                                ║
+                         ║  Remplace "tc2.png" par ton image (format 1920x1080 idéal)    ║
+                         ╚════════════════════════════════════════════════════════════════╝ -->
+                    <div class="testimonial-card">
+                        <img src="tc2.png" alt="Résultat cliente 2">
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Spacer -->
+        <div class="footer-spacer"></div>
+    </div>
+</body>
+</html>
